@@ -1,0 +1,6 @@
+c:\users\alex\documents\visual studio 2013\Projects\Fighting Fantasy\bin\Debug\Fighting Fantasy.exe.config
+C:\Users\Alex\documents\visual studio 2013\Projects\Fighting Fantasy\bin\Debug\Fighting Fantasy.exe
+C:\Users\Alex\documents\visual studio 2013\Projects\Fighting Fantasy\bin\Debug\Fighting Fantasy.pdb
+C:\Users\Alex\documents\visual studio 2013\Projects\Fighting Fantasy\obj\Debug\Fighting Fantasy.csprojResolveAssemblyReference.cache
+C:\Users\Alex\documents\visual studio 2013\Projects\Fighting Fantasy\obj\Debug\Fighting Fantasy.exe
+C:\Users\Alex\documents\visual studio 2013\Projects\Fighting Fantasy\obj\Debug\Fighting Fantasy.pdb
