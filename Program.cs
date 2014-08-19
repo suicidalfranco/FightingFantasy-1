@@ -44,7 +44,7 @@ namespace Fighting_Fantasy
                 _playerName = getPlayerName();
                 Thread.Sleep(200);
                 _playerRace = getPlayerRace(_playerName, false);
-                firstGameSetup(_playerName, _playerRace);
+                //firstGameSetup(_playerName, _playerRace);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Fighting_Fantasy
             // If this is the first time the function has run through, complete first bit of code
             if (goAgain == false) 
             {
-                printAIMessage("\nAhhh! Welcome " + _playerName + "!");
+                printAIMessage("\nAhhh! Welcome " + _playerName + "!\n");
                 printAIMessage("Tell me, what race are you?\n");
             }
             else 
@@ -79,9 +79,10 @@ namespace Fighting_Fantasy
                 printAIMessage("I'm sorry, I didn't quite catch that?");
             }
 
-            Console.WriteLine("1. Human\n2. Elf\n3. Dwarf");
+            Console.WriteLine("1. Human\n2. Elf\n3. Dwarf\n");
             Console.Write("Your race: ");
             ConsoleKeyInfo _playerRaceKey = Console.ReadKey(); // Get the key the user pressed
+            Console.WriteLine();
             switch (_playerRaceKey.Key)
             {
                 case ConsoleKey.D1: // If key "1"
@@ -98,13 +99,27 @@ namespace Fighting_Fantasy
             return null;
         }
 
+        /// <summary>
+        /// Prints a message to the console with a slight delay between each
+        /// character to separate game and AI text
+        /// </summary>
+        /// <param name="messageToPrint"></param>
         public static void printAIMessage(string messageToPrint)
         {
+            // Get the original color of the console
+            ConsoleColor _originalColor = Console.ForegroundColor;
+            // Set the new color to Cyan
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
             foreach (char letter in messageToPrint)
             {
                 Console.Write(letter);
                 Thread.Sleep(100);
             }
+            Console.WriteLine();
+          
+            // Set the console color back to the original color
+            Console.ForegroundColor = _originalColor;
         }
 
         /// <summary>
