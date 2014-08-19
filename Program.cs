@@ -30,6 +30,10 @@ namespace Fighting_Fantasy
             
         }
 
+        /// <summary>
+        /// Check the state of the game to see if it is being run for the first time
+        /// or the user is returning to continue playing from where they left off.
+        /// </summary>
         private static void checkGameState()
         {
             string _playerName;
@@ -38,24 +42,69 @@ namespace Fighting_Fantasy
             if (File.Exists("player.xml") != true)
             {
                 _playerName = getPlayerName();
-                _playerRace = getPlayerRace(_playerName);
-                firstGameSetup(_playerName);
+                Thread.Sleep(200);
+                _playerRace = getPlayerRace(_playerName, false);
+                firstGameSetup(_playerName, _playerRace);
             }
         }
 
-        private static string getPlayerRace(string _playerName)
-        {
-            Console.WriteLine("Ahhh! Welcome " + _playerName + "!");
-            Console.WriteLine("Tell me, what race are you?\n");
-            Console.WriteLine("1. Human\n2. Elf\n3. Dwarf\n4. Undead\n5. ")
-        }
-
+        /// <summary>
+        /// Asks the player for a character name and returns the name as a string
+        /// </summary>
+        /// <returns></returns>
         private static string getPlayerName()
         {
-            Console.WriteLine("Welcome traveller! What is your name?\n");
+            printAIMessage("Welcome traveller! What is your name?\n");
             Console.Write("My name is: ");
             string _playerName = Console.ReadLine();
             return _playerName;
+        }
+
+        /// <summary>
+        /// Asks the player to select a race and returns the race as a string.
+        /// </summary>
+        /// <param name="_playerName">The players character name</param>
+        /// <param name="goAgain">Did the user press a wrong key?</param>
+        /// <returns></returns>
+        private static string getPlayerRace(string _playerName, bool goAgain)
+        {
+            // If this is the first time the function has run through, complete first bit of code
+            if (goAgain == false) 
+            {
+                printAIMessage("\nAhhh! Welcome " + _playerName + "!");
+                printAIMessage("Tell me, what race are you?\n");
+            }
+            else 
+            {
+                printAIMessage("I'm sorry, I didn't quite catch that?");
+            }
+
+            Console.WriteLine("1. Human\n2. Elf\n3. Dwarf");
+            Console.Write("Your race: ");
+            ConsoleKeyInfo _playerRaceKey = Console.ReadKey(); // Get the key the user pressed
+            switch (_playerRaceKey.Key)
+            {
+                case ConsoleKey.D1: // If key "1"
+                    return "Human";
+                case ConsoleKey.D2: // If key "2"
+                    return "Elf";
+                case ConsoleKey.D3: // If key "3"
+                    return "Dwarf";
+                default:
+                    getPlayerRace(_playerName, true); // Re-run the function with goAgain as "true"
+                    break;
+            }
+
+            return null;
+        }
+
+        public static void printAIMessage(string messageToPrint)
+        {
+            foreach (char letter in messageToPrint)
+            {
+                Console.Write(letter);
+                Thread.Sleep(100);
+            }
         }
 
         /// <summary>
@@ -63,7 +112,7 @@ namespace Fighting_Fantasy
         /// when the game is first run.
         /// </summary>
         /// <param name="playerName"></param>
-        private static void firstGameSetup(string _playerName)
+        private static void firstGameSetup(string _playerName, string _playerRace)
         {
             // Create the XmlWriterSettings and set the indent to true
             XmlWriterSettings _settings = new XmlWriterSettings();
@@ -74,7 +123,7 @@ namespace Fighting_Fantasy
             _writer.WriteComment("This file holds all information about the game state when saved");
             _writer.WriteStartElement("Player");
             _writer.WriteAttributeString("Name", _playerName);
-            _writer.WriteAttributeString("Race", _playerRace)
+            _writer.WriteAttributeString("Race", _playerRace);
 
 
 

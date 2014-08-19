@@ -14,7 +14,7 @@ namespace Fighting_Fantasy
 
         public Human(int playerLevel)
         {
-            setHelm();
+            
         }
     }
 }
