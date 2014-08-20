@@ -11,10 +11,11 @@ namespace Fighting_Fantasy
     class Program
     {
 
-        int playerHealth;
-        int playerArmour;
-        int playerMana;
-
+        int playerBaseHealth; // The players base health
+        int playerBaseArmour; // The players base armour
+        int playerBaseMana; // The players base mana
+        public static string _playerName;
+        public static string _playerRace;
 
         static void Main(string[] args)
         {
@@ -25,9 +26,7 @@ namespace Fighting_Fantasy
 
 
             // End program here
-            Console.ReadKey();
-
-            
+            Console.ReadKey();            
         }
 
         /// <summary>
@@ -36,15 +35,17 @@ namespace Fighting_Fantasy
         /// </summary>
         private static void checkGameState()
         {
-            string _playerName;
-            string _playerRace;
-
             if (File.Exists("player.xml") != true)
             {
                 _playerName = getPlayerName();
                 Thread.Sleep(200);
                 _playerRace = getPlayerRace(_playerName, false);
-                //firstGameSetup(_playerName, _playerRace);
+                XmlManagement.firstGameSetup(_playerName, _playerRace);
+            }
+            else
+            {
+                XmlManagement.readFromPlayerXml();
+                printAIMessage("Welcome back " + _playerName + "!");
             }
         }
 
@@ -120,28 +121,6 @@ namespace Fighting_Fantasy
           
             // Set the console color back to the original color
             Console.ForegroundColor = _originalColor;
-        }
-
-        /// <summary>
-        /// Creates the XML file that stores the players details in it
-        /// when the game is first run.
-        /// </summary>
-        /// <param name="playerName"></param>
-        private static void firstGameSetup(string _playerName, string _playerRace)
-        {
-            // Create the XmlWriterSettings and set the indent to true
-            XmlWriterSettings _settings = new XmlWriterSettings();
-            _settings.Indent = true;
-
-            XmlWriter _writer = XmlWriter.Create("player.xml", _settings);
-            _writer.WriteStartDocument();
-            _writer.WriteComment("This file holds all information about the game state when saved");
-            _writer.WriteStartElement("Player");
-            _writer.WriteAttributeString("Name", _playerName);
-            _writer.WriteAttributeString("Race", _playerRace);
-
-
-
         }
 
         /// <summary>
