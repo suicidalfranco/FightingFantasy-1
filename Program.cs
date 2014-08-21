@@ -10,31 +10,37 @@ namespace Fighting_Fantasy
 {
     class Program
     {
+        // GLOBAL VARIABLES TO DO WITH PLAYER STATS
+        int playerBaseHealth; // THE PLAYERS BASE HEALTH
+        int playerBaseArmour; // THE PLAYERS BASE ARMOUR
+        int playerBaseMana; // THE PLAYERS BASE MANA
 
-        int playerBaseHealth; // The players base health
-        int playerBaseArmour; // The players base armour
-        int playerBaseMana; // The players base mana
+        // GLOBAL VARIBALES TO DO WITH PLAYER NAME AND RACE
         public static string _playerName;
         public static string _playerRace;
 
         static void Main(string[] args)
         {
-            // Display the introduction for the game
+            // DISPLAY THE INTRODUCTION FOR THE GAME
             displayIntroduction();
 
+            // CHECK WETHER THE GAME HAS BEEN RUN BEFORE
             checkGameState();
 
 
-            // End program here
+            // END PROGRAM HERE
             Console.ReadKey();            
         }
 
         /// <summary>
-        /// Check the state of the game to see if it is being run for the first time
-        /// or the user is returning to continue playing from where they left off.
+        /// CHECK THE STATE OF THE GAME TO SEE IF IT IS BEING RUN FOR THE FIRST TIME
+        /// OR THE USER IS RETURNING TO CONTINUE PLAYING FROM WHERE THEY LEFT OFF.
         /// </summary>
         private static void checkGameState()
         {
+            // IF THE FILE "PLAYER.XML" DOESN'T EXIST, RUN THE FIRST SETUP TO GET USER NAME AND
+            // RACE THEN SAVE THE IMFORMATION TO "PLAYER.XML"
+            // ELSE READ THE SAVE DATA FROM "PLAYER.XML" AND CONTINUE
             if (File.Exists("player.xml") != true)
             {
                 XmlManagement.firstGameSetup(_playerName, _playerRace);
@@ -47,7 +53,7 @@ namespace Fighting_Fantasy
         }
 
         /// <summary>
-        /// Asks the player for a character name and returns the name as a string
+        /// ASKS THE PLAYER FOR A CHARACTER NAME AND RETURNS THE NAME AS A STRING
         /// </summary>
         /// <returns></returns>
         public static string getPlayerName()
@@ -59,14 +65,14 @@ namespace Fighting_Fantasy
         }
 
         /// <summary>
-        /// Asks the player to select a race and returns the race as a string.
+        /// ASKS THE PLAYER TO SELECT A RACE AND RETURNS THE RACE AS A STRING.
         /// </summary>
         /// <param name="_playerName">The players character name</param>
         /// <param name="goAgain">Did the user press a wrong key?</param>
         /// <returns></returns>
         public static string getPlayerRace(string _playerName, bool goAgain)
         {
-            // If this is the first time the function has run through, complete first bit of code
+            // IF THIS IS THE FIRST TIME THE FUNCTION HAS RUN THROUGH, COMPLETE FIRST BIT OF CODE
             if (goAgain == false) 
             {
                 printAIMessage("\nAhhh! Welcome " + _playerName + "!\n");
@@ -79,7 +85,7 @@ namespace Fighting_Fantasy
 
             Console.WriteLine("1. Human\n2. Elf\n3. Dwarf\n");
             Console.Write("Your race: ");
-            ConsoleKeyInfo _playerRaceKey = Console.ReadKey(); // Get the key the user pressed
+            ConsoleKeyInfo _playerRaceKey = Console.ReadKey(); // GET THE KEY THE USER PRESSED
             Console.WriteLine();
             switch (_playerRaceKey.Key)
             {
@@ -90,7 +96,7 @@ namespace Fighting_Fantasy
                 case ConsoleKey.D3: // If key "3"
                     return "Dwarf";
                 default:
-                    getPlayerRace(_playerName, true); // Re-run the function with goAgain as "true"
+                    getPlayerRace(_playerName, true); // RE-RUN THE FUNCTION WITH GOAGAIN AS "TRUE"
                     break;
             }
 
@@ -98,17 +104,19 @@ namespace Fighting_Fantasy
         }
 
         /// <summary>
-        /// Prints a message to the console with a slight delay between each
-        /// character to separate game and AI text
+        /// PRINTS A MESSAGE TO THE CONSOLE WITH A SLIGHT DELAY BETWEEN EACH
+        /// CHARACTER TO SEPARATE GAME AND AI TEXT
         /// </summary>
         /// <param name="messageToPrint"></param>
         public static void printAIMessage(string messageToPrint)
         {
-            // Get the original color of the console
+            // GET THE ORIGINAL COLOR OF THE CONSOLE
             ConsoleColor _originalColor = Console.ForegroundColor;
-            // Set the new color to Cyan
+            // SET THE NEW COLOR TO CYAN
             Console.ForegroundColor = ConsoleColor.Cyan;
 
+            // FOR EVERY LETTER IN THE STRING GIVEN, PRINT EACH CHARACTER SEPARATELY WITH
+            // A SMALL PAUSE IN BETWEEN
             foreach (char letter in messageToPrint)
             {
                 Console.Write(letter);
@@ -116,15 +124,16 @@ namespace Fighting_Fantasy
             }
             Console.WriteLine();
           
-            // Set the console color back to the original color
+            // SET THE CONSOLE COLOR BACK TO THE ORIGINAL COLOR
             Console.ForegroundColor = _originalColor;
         }
 
         /// <summary>
-        /// Shows the introduction to Fighting Fantasy
+        /// SHOWS THE INTRODUCTION TO FIGHTING FANTASY
         /// </summary>
         private static void displayIntroduction()
         {
+            // STORE THE ORIGINAL FOREGROUND COLOR AND CHANGE IT TO RED
             ConsoleColor _originalColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;
 
@@ -152,6 +161,7 @@ namespace Fighting_Fantasy
 
         public static void displayMainMenu() 
         {
+            // STORE THE ORIGINAL FOREGROUND COLOR AND CHANGE TO CYAN
             ConsoleColor _originalColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -162,15 +172,16 @@ namespace Fighting_Fantasy
             Console.WriteLine("1. Start a new game\n2. Load a save game\n3. Exit\n");
             Console.Write("Your selection: ");
             Thread.Sleep(100);
-            ConsoleKeyInfo _userSelectionKey = Console.ReadKey();
+            ConsoleKeyInfo _userSelectionKey = Console.ReadKey(); // GET THE USER TO PRESS A KEY
             Console.WriteLine();
 
+            // LOOK AT WHICH KEY WAS PRESSED
             switch (_userSelectionKey.Key)
             {
                 case ConsoleKey.D1:
                     Console.WriteLine("\nAre you sure you want to start a new game?\nThis will overwrite your old save game!");
                     Console.Write("Y/N?: ");
-                    ConsoleKeyInfo _selection = Console.ReadKey();
+                    ConsoleKeyInfo _selection = Console.ReadKey(); // GET THE USERS INPUT AS A KEY
                     if (_selection.Key == ConsoleKey.Y)
                     {
                         printAIMessage("\n\nStarting new game...");
