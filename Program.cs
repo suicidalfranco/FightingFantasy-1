@@ -37,9 +37,6 @@ namespace Fighting_Fantasy
         {
             if (File.Exists("player.xml") != true)
             {
-                _playerName = getPlayerName();
-                Thread.Sleep(200);
-                _playerRace = getPlayerRace(_playerName, false);
                 XmlManagement.firstGameSetup(_playerName, _playerRace);
             }
             else
@@ -53,7 +50,7 @@ namespace Fighting_Fantasy
         /// Asks the player for a character name and returns the name as a string
         /// </summary>
         /// <returns></returns>
-        private static string getPlayerName()
+        public static string getPlayerName()
         {
             printAIMessage("Welcome traveller! What is your name?\n");
             Console.Write("My name is: ");
@@ -67,7 +64,7 @@ namespace Fighting_Fantasy
         /// <param name="_playerName">The players character name</param>
         /// <param name="goAgain">Did the user press a wrong key?</param>
         /// <returns></returns>
-        private static string getPlayerRace(string _playerName, bool goAgain)
+        public static string getPlayerRace(string _playerName, bool goAgain)
         {
             // If this is the first time the function has run through, complete first bit of code
             if (goAgain == false) 
@@ -128,6 +125,9 @@ namespace Fighting_Fantasy
         /// </summary>
         private static void displayIntroduction()
         {
+            ConsoleColor _originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+
             Console.WriteLine("================================================================================");
             Thread.Sleep(300);
             Console.WriteLine("|                                                                              |");
@@ -146,9 +146,45 @@ namespace Fighting_Fantasy
             Thread.Sleep(300);
             Console.WriteLine("================================================================================\n\n");
             Thread.Sleep(300);
+
+            Console.ForegroundColor = _originalColor;
         }
 
+        public static void displayMainMenu() 
+        {
+            ConsoleColor _originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Cyan;
 
+            printAIMessage("What would you like to do?");
 
+            Console.ForegroundColor = _originalColor;
+
+            Console.WriteLine("1. Start a new game\n2. Load a save game\n3. Exit\n");
+            Console.Write("Your selection: ");
+            Thread.Sleep(100);
+            ConsoleKeyInfo _userSelectionKey = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (_userSelectionKey.Key)
+            {
+                case ConsoleKey.D1:
+                    Console.WriteLine("\nAre you sure you want to start a new game?\nThis will overwrite your old save game!");
+                    Console.Write("Y/N?: ");
+                    ConsoleKeyInfo _selection = Console.ReadKey();
+                    if (_selection.Key == ConsoleKey.Y)
+                    {
+                        printAIMessage("\n\nStarting new game...");
+                        Thread.Sleep(1000);
+                        XmlManagement.firstGameSetup(_playerName, _playerRace);
+                    }
+                    break;
+                case ConsoleKey.D2:
+                    break;
+                case ConsoleKey.D3:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

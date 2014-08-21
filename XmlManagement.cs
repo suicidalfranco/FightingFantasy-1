@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,26 @@ namespace Fighting_Fantasy
         /// <param name="playerName"></param>
         public static void firstGameSetup(string _playerName, string _playerRace)
         {
+            Program._playerName = Program.getPlayerName();
+            Thread.Sleep(200);
+            Program._playerRace = Program.getPlayerRace(Program._playerName, false);
+
+            Random r = new Random();
+
+            if (Program._playerRace == "Human")
+            {
+                Program.printAIMessage("So a human called " + Program._playerName + "... A fitting name if I do say so myself!");
+            }
+            else if (Program._playerRace == "Elf")
+            {
+                Program.printAIMessage("So an elf called " + Program._playerName + "... A fitting name if I do say so myself!");
+            }
+            else if (Program._playerRace == "Dwarf")
+            {
+                Program.printAIMessage("So a dwarf called " + Program._playerName + "... A fitting name if I do say so myself!");
+            }
+
+
             // Create the XmlWriterSettings and set the indent to true
             XmlWriterSettings _settings = new XmlWriterSettings();
             _settings.Indent = true;
@@ -26,8 +47,8 @@ namespace Fighting_Fantasy
             _writer.WriteStartDocument();
             _writer.WriteComment("This file holds all information about the game state when saved");
             _writer.WriteStartElement("Player");
-            _writer.WriteAttributeString("Name", _playerName);
-            _writer.WriteAttributeString("Race", _playerRace);
+                _writer.WriteAttributeString("Name", _playerName);
+                _writer.WriteAttributeString("Race", _playerRace);
             _writer.WriteEndElement();
             _writer.WriteEndDocument();
 
@@ -53,6 +74,8 @@ namespace Fighting_Fantasy
                     Program._playerRace = _reader.GetAttribute(1);
                 }
             }
+
+            _reader.Close();
         }
     }
 }
