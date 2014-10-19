@@ -19,6 +19,7 @@ namespace Fighting_Fantasy
         public static void firstGameSetup(string _playerName, string _playerRace)
         {
             // RUN THE FUNCTIONS TO GET THE PLAYERS NAME AND RACE
+            World.InitializePPOS();
             Program._playerName = Program.getPlayerName();
             Thread.Sleep(200);
             Program._playerRace = Program.getPlayerRace(Program._playerName, false);
@@ -30,6 +31,7 @@ namespace Fighting_Fantasy
             if (Program._playerRace == "Human")
             {
                 Program.printAIMessage("So a human called " + Program._playerName + "... A fitting name if I do say so myself!");
+
             }
             else if (Program._playerRace == "Elf")
             {

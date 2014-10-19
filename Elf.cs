@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Fighting_Fantasy
 {
-    class Human
+    class Elf
     {
-        public int _baseHealth = 20;
+        public int _baseHealth = 10;
         public int _baseArmour = 5;
-        public int _baseMana = 10;
+        public int _baseMana = 20;
         private int _playerLevel;
 
-        public Human(int _playerLevel)
+        public Elf(int _playerLevel)
         {
             // LOAD PLAYERS LEVEL INTO THE INSTANCE
             this._playerLevel = _playerLevel;

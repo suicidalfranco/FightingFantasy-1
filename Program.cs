@@ -18,6 +18,10 @@ namespace Fighting_Fantasy
         // GLOBAL VARIBALES TO DO WITH PLAYER NAME AND RACE
         public static string _playerName;
         public static string _playerRace;
+        public static int _playerPositionN;
+        public static int _playerPositionM;
+        public static int _playerPointer;
+        public static string _playerOrder;
 
         static void Main(string[] args)
         {
@@ -32,7 +36,7 @@ namespace Fighting_Fantasy
             Console.ReadKey();            
         }
 
-        /// <summary>
+        /// <summary>Control game status
         /// CHECK THE STATE OF THE GAME TO SEE IF IT IS BEING RUN FOR THE FIRST TIME
         /// OR THE USER IS RETURNING TO CONTINUE PLAYING FROM WHERE THEY LEFT OFF.
         /// </summary>
@@ -44,15 +48,24 @@ namespace Fighting_Fantasy
             if (File.Exists("player.xml") != true)
             {
                 XmlManagement.firstGameSetup(_playerName, _playerRace);
+                
+                while(_playerOrder != "quit")
+                {
+                    Orders();
+                }
             }
             else
             {
                 XmlManagement.readFromPlayerXml();
                 printAIMessage("Welcome back " + _playerName + "!");
+                while (_playerOrder != "quit")
+                {
+                    Orders();
+                }
             }
         }
 
-        /// <summary>
+        /// <summary>Name input
         /// ASKS THE PLAYER FOR A CHARACTER NAME AND RETURNS THE NAME AS A STRING
         /// </summary>
         /// <returns></returns>
@@ -64,7 +77,7 @@ namespace Fighting_Fantasy
             return _playerName;
         }
 
-        /// <summary>
+        /// <summary>Race input
         /// ASKS THE PLAYER TO SELECT A RACE AND RETURNS THE RACE AS A STRING.
         /// </summary>
         /// <param name="_playerName">The players character name</param>
@@ -103,7 +116,7 @@ namespace Fighting_Fantasy
             return null;
         }
 
-        /// <summary>
+        /// <summary>Text control
         /// PRINTS A MESSAGE TO THE CONSOLE WITH A SLIGHT DELAY BETWEEN EACH
         /// CHARACTER TO SEPARATE GAME AND AI TEXT
         /// </summary>
@@ -120,7 +133,7 @@ namespace Fighting_Fantasy
             foreach (char letter in messageToPrint)
             {
                 Console.Write(letter);
-                Thread.Sleep(100);
+                Thread.Sleep(50);
             }
             Console.WriteLine();
           
@@ -128,7 +141,7 @@ namespace Fighting_Fantasy
             Console.ForegroundColor = _originalColor;
         }
 
-        /// <summary>
+        /// <summary>Intro
         /// SHOWS THE INTRODUCTION TO FIGHTING FANTASY
         /// </summary>
         private static void displayIntroduction()
@@ -158,7 +171,19 @@ namespace Fighting_Fantasy
 
             Console.ForegroundColor = _originalColor;
         }
-
+        
+        /// <summary>command input
+        /// check for command inputed by the player
+        /// </summary>
+        private static void Orders()
+        {
+            printAIMessage("what do you want to do?");
+            _playerOrder = Console.ReadLine();
+            if (_playerOrder.Contains("move"))
+            {
+                World.Move();
+            }
+        }
         public static void displayMainMenu() 
         {
             // STORE THE ORIGINAL FOREGROUND COLOR AND CHANGE TO CYAN

@@ -10,3 +10,9 @@ C:\Users\Alex\Documents\GitHub\FightingFantasy\obj\Debug\Fighting Fantasy.csproj
 C:\Users\Alex\Documents\GitHub\FightingFantasy\bin\Debug\Fighting Fantasy.exe
 C:\Users\Alex\Documents\GitHub\FightingFantasy\bin\Debug\Fighting Fantasy.pdb
 C:\Users\Alex\Documents\GitHub\FightingFantasy\obj\Debug\Fighting Fantasy.pdb
+C:\Users\Franco\Documents\Visual Studio 2013\Projects\FightingFantasy-master\bin\Debug\Fighting Fantasy.exe.config
+C:\Users\Franco\Documents\Visual Studio 2013\Projects\FightingFantasy-master\obj\Debug\Fighting Fantasy.exe
+C:\Users\Franco\Documents\Visual Studio 2013\Projects\FightingFantasy-master\obj\Debug\Fighting Fantasy.pdb
+C:\Users\Franco\Documents\Visual Studio 2013\Projects\FightingFantasy-master\obj\Debug\Fighting Fantasy.csprojResolveAssemblyReference.cache
+C:\Users\Franco\Documents\Visual Studio 2013\Projects\FightingFantasy-master\bin\Debug\Fighting Fantasy.exe
+C:\Users\Franco\Documents\Visual Studio 2013\Projects\FightingFantasy-master\bin\Debug\Fighting Fantasy.pdb
